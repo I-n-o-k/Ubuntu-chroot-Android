@@ -36,6 +36,9 @@ busybox chroot $UBUNTUPATH /bin/su - root -c "echo ${user}:${passwd} | chpasswd"
 # set password for root (default password for root is root)
 busybox chroot $UBUNTUPATH /bin/su - root -c "echo root:root | chpasswd"
 
+# add normal user to sudo group
+busybox chroot $UBUNTUPATH /bin/su - root -c "apt update && apt install -y sudo && adduser $user sudo"
+
 # chroot into Ubuntu (connect with ssh)# chroot into Ubuntu (connect with ssh)
 busybox chroot $UBUNTUPATH /bin/su - root -c "apt update && apt install -y openssh-client openssh-server"
 busybox chroot $UBUNTUPATH /bin/su - root /etc/init.d/ssh stop
