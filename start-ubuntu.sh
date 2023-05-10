@@ -11,6 +11,11 @@ busybox mount --bind /sys $UBUNTUPATH/sys
 busybox mount --bind /proc $UBUNTUPATH/proc
 busybox mount -t devpts devpts $UBUNTUPATH/dev/pts
 
+# config ssh
+sed -i -E 's/#?PasswordAuthentication .*/PasswordAuthentication yes/g' "$UBUNTUPATH/etc/ssh/sshd_config"
+sed -i -E 's/#?PermitRootLogin .*/PermitRootLogin yes/g' "$UBUNTUPATH/etc/ssh/sshd_config"
+sed -i -E 's/#?AcceptEnv .*/AcceptEnv LANG/g' "$UBUNTUPATH/etc/ssh/sshd_config"
+
 # Mount sdcard
 busybox mount --bind /sdcard $UBUNTUPATH/sdcard
 
