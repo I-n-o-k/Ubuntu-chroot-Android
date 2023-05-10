@@ -24,6 +24,18 @@ sed -i -E 's/#?AcceptEnv .*/AcceptEnv LANG/g' "$UBUNTUPATH/etc/ssh/sshd_config"
 # Mount sdcard
 busybox mount --bind /sdcard $UBUNTUPATH/sdcard
 
+# Create normal user 
+user="user"
+passwd="user"
+busybox chroot $UBUNTUPATH /bin/su - root -c "adduser --disabled-password --gecos GECOS ${user}"
+busybox chroot $UBUNTUPATH /bin/su - root -c "${user:}${user} /home/${user}"
+
+# set password for user
+busybox chroot $UBUNTUPATH /bin/su - root -c "echo ${user}:${passwd} | chpasswd"
+
+# set password for root (default password for root is root)
+busybox chroot $UBUNTUPATH /bin/su - root -c "echo root:root | chpasswd"
+
 # chroot into Ubuntu (connect with ssh)# chroot into Ubuntu (connect with ssh)
 busybox chroot $UBUNTUPATH /bin/su - root -c "apt update && apt install -y openssh-client openssh-server"
 busybox chroot $UBUNTUPATH /bin/su - root /etc/init.d/ssh stop
