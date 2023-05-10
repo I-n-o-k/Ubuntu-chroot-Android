@@ -14,5 +14,8 @@ busybox mount -t devpts devpts $UBUNTUPATH/dev/pts
 # Mount sdcard
 busybox mount --bind /sdcard $UBUNTUPATH/sdcard
 
-# chroot into Ubuntu (connect with ssh)
-busybox chroot $UBUNTUPATH /bin/su - root start-ssh
+# chroot into Ubuntu (connect with ssh)# chroot into Ubuntu (connect with ssh)
+busybox chroot $UBUNTUPATH /bin/su - root -c "apt update && apt install -y openssh-client openssh-server"
+busybox chroot $UBUNTUPATH /bin/su - root /etc/init.d/ssh stop
+busybox chroot $UBUNTUPATH /bin/su - root /etc/init.d/ssh start
+
