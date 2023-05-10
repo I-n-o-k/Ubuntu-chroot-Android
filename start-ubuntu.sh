@@ -4,7 +4,7 @@
 UBUNTUPATH="/data/local/ubuntu"
 
 # Fix setuid issue
-#busybox mount -o remount,dev,suid /data
+busybox mount -o remount,dev,suid /data
 
 busybox mount --bind /dev $UBUNTUPATH/dev
 busybox mount --bind /sys $UBUNTUPATH/sys
