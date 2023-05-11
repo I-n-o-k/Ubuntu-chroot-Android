@@ -28,7 +28,7 @@ busybox mount --bind /sdcard $UBUNTUPATH/sdcard
 user="user"
 passwd="user"
 busybox chroot $UBUNTUPATH /bin/su - root -c "adduser --disabled-password --gecos GECOS ${user}"
-busybox chroot $UBUNTUPATH /bin/su - root -c "chown -R ${user:}${user} /home/${user}"
+busybox chroot $UBUNTUPATH /bin/su - root -c "chown -R ${user}:${user} /home/${user}"
 
 # set password for user
 busybox chroot $UBUNTUPATH /bin/su - root -c "echo ${user}:${passwd} | chpasswd"
